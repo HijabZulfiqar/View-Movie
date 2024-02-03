@@ -1,0 +1,26 @@
+.active{
+    background-color: #13141C;
+    margin-left: 0;
+
+}
+
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 1.58rem 0;
+    font-family: 'Abyssinica', sans-serif;
+    cursor: pointer;
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-size: 14px;
+    gap: 1rem;
+    height: 2.5rem;
+    margin-left: 0.75rem; 
+  }
+  
+ 
+  
+.active::before{
+    content: '';
+
+}
