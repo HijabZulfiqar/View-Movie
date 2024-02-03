@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/brand_logo.png";
 import icon from "../../assets/Close.png";
 import { SidebarData } from "../Constants/Navigation";
@@ -19,44 +20,40 @@ const Sidebar = () => {
 
   return (
     <div>
-       <div 
-       className="bars"
-      style={expanded ? { left: '10rem', top: '6rem' } : { left: '1rem', top: '5%' }}
-      onClick={() => setExpanded(!expanded)}
-        
+      <div
+        className="bars"
+        style={
+          expanded
+            ? { left: "10rem", top: "4rem" }
+            : { left: "1rem", top: "5%" }
+        }
+        onClick={() => setExpanded(!expanded)}
       >
-      <img    src={icon} alt="" />
-    </div>
+        <img src={icon} alt="" />
+      </div>
 
       <motion.div
         className="bg-[#232533] sidebar "
         variants={sidebarVariants}
         animate={window.innerWidth <= 768 ? `${expanded}` : ""}
       >
-        {/* <div className="bar"
-      
-        onClick={() => setExpanded(!expanded)}
-        
-        >
-        <img className="bars"   src={icon} alt="" />
-      </div>
-      */}
         <div className="logo">
           <img src={logo} alt="logo" />
         </div>
 
         <div className="menu">
           {SidebarData.map((item, index) => (
-            <div
-              key={index}
-              className={`${
-                selected === index ? " menu-item active" : " menu-item"
-              }`}
-              onClick={() => setSelected(index)}
-            >
-              {item.icon}
-              <span className="span">{item.label}</span>
-            </div>
+            <Link to={item.path} key={index}>
+              <div
+                className={`${
+                  selected === index ? " menu-item active" : " menu-item"
+                }`}
+                onClick={() => setSelected(index)}
+              >
+                {item.icon}
+                <span className="span">{item.label}</span>
+              </div>
+            </Link>
           ))}
         </div>
       </motion.div>

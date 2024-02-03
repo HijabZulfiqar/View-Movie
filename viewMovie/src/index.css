@@ -5,17 +5,17 @@
 
 @layer components {
   @tailwind screens;
-  .bar{
-    @apply hidden
+  .bar {
+    @apply hidden;
   }
- 
+
   .active {
     @apply bg-[#13141C] ml-3  text-white;
   }
-  
+
   @media screen and (max-width: 1866px) {
-      .bars{
-        @apply hidden
+    .bars {
+      @apply hidden;
     }
     .layout {
       @apply flex h-screen w-screen flex-row overflow-hidden;
@@ -37,24 +37,24 @@
       @apply flex items-center rounded-r-xl pl-5 py-5 gap-3 h-[2.5rem] cursor-pointer relative transition-all duration-300 ease-in-out text-[14px];
     }
     .active::before {
-        content: "";
-        margin-right: calc(1rem - 26px);
-      }
+      content: "";
+      margin-right: calc(1rem - 26px);
+    }
   }
   @media screen and (max-width: 1200px) {
-    .bars{
-        @apply hidden
+    .bars {
+      @apply hidden;
     }
     .layout {
       @apply flex h-screen w-screen flex-row overflow-hidden;
     }
 
     .sidebar {
-      @apply flex flex-col relative pt-[8rem] w-[8rem];
+      @apply flex flex-col relative pt-[6rem] w-[8rem];
     }
 
     .menu-item {
-      @apply flex items-center rounded-r-xl pl-3 py-7 gap-3 h-[2.5rem] cursor-pointer relative  text-[14px];
+      @apply flex items-center rounded-r-xl pl-3 py-6 gap-3 h-[2.5rem] cursor-pointer relative  text-[14px];
     }
     .active {
       @apply bg-[#13141C] ml-0 text-white;
@@ -64,12 +64,12 @@
     }
 
     .logo {
-      @apply hidden;
+      @apply flex;
     }
     .active::before {
-        content: "";
-        margin-right: calc(1rem - 18px);
-      }
+      content: "";
+      margin-right: calc(1rem - 18px);
+    }
   }
   @media screen and (max-width: 768px) {
     .sidebar {
@@ -83,15 +83,13 @@
     .span {
       @apply flex;
     }
-   
-    
+
     .bars {
       display: flex;
       position: fixed;
-       top: 6rem;
-       left: 10rem;
+      top: 6rem;
+      left: 10rem;
 
-    
       background-color: #232533;
       padding: 10px;
       border-radius: 10px;
@@ -109,6 +107,5 @@
     .menu-item {
       @apply flex items-center rounded-r-xl pl-5 py-5 gap-3 h-[2.5rem] cursor-pointer relative transition-all duration-300 ease-in-out text-[10px];
     }
-   
   }
 }
