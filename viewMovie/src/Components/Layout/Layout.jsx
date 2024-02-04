@@ -1,22 +1,24 @@
 import React from "react";
-import SideBar from "../SideBar/SideBar";
-import "../../App.css";
+
+
 import { Outlet } from "react-router-dom";
-import Home from "../Pages/Home";
+
+import SideBar from "../SideBar/SideBar";
 
 const Layout = () => {
   return (
-    <div className=" flex  justify-center items-center min-h-screen   ">
-      <div className="layout">
-        <SideBar />
-         <div className=" bg-slate-900  ">
-        <div >
-        <Home/>
+   
+    <div className=" flex flex-row min-h-screen gap-x-0">
+    <SideBar/>
+    <div className=" bg-slate-900 h-screen w-screen overflow-auto ">
+    <div className="py-4 min-h-0">
+      
         {<Outlet />}
         </div>
       </div>
-      </div>
     </div>
+      
+    
   );
 };
 

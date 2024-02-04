@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.18",
     "@iconscout/unicons": "^4.0.8",
     "framer-motion": "^11.0.3",
     "react": "^18.2.0",

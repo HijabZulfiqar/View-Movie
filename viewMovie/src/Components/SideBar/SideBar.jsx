@@ -1,64 +1,45 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { Disclosure } from "@headlessui/react";
 import logo from "../../assets/brand_logo.png";
-import icon from "../../assets/Close.png";
+import { NavLink, useLocation } from "react-router-dom";
 import { SidebarData } from "../Constants/Navigation";
-import { motion } from "framer-motion";
 
-const Sidebar = () => {
-  const [selected, setSelected] = useState(0);
-  const [expanded, setExpanded] = useState(true);
-
-  const sidebarVariants = {
-    true: {
-      left: "0",
-    },
-    false: {
-      left: "-60%",
-    },
-  };
+const SideBar = () => {
+  const location = useLocation();
 
   return (
-    <div>
-      <div
-        className="bars"
-        style={
-          expanded
-            ? { left: "10rem", top: "4rem" }
-            : { left: "1rem", top: "5%" }
-        }
-        onClick={() => setExpanded(!expanded)}
-      >
-        <img src={icon} alt="" />
-      </div>
-
-      <motion.div
-        className="bg-[#232533] sidebar "
-        variants={sidebarVariants}
-        animate={window.innerWidth <= 768 ? `${expanded}` : ""}
-      >
-        <div className="logo">
-          <img src={logo} alt="logo" />
+    <div className=" ">
+      <Disclosure as="nav">
+        <Disclosure.Button className="absolute lg:hidden top-4 right-4 inline-flex items-center peer justify-center rounded-md p-2 text-white hover:bg-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white group">
+          <GiHamburgerMenu className="block lg:hidden h-6 w-6" aria-hidden="true" />
+        </Disclosure.Button>
+        <div className="p-6  h-screen bg-[#232533] z-20 md:z-0 fixed lg:relative top-0 -left-96 lg:left-0 w-60  peer-focus:left-0 peer:transition ease-out delay-150 duration-200">
+          <div className="flex flex-col justify-start item-center">
+            <div className="text-base text-center cursor-pointer font-bold text-white pb-4 w-full">
+              <img src={logo} alt="" srcSet="" />
+            </div>
+            <div className="my-4 mt-5 pb-4">
+              {SidebarData.map((item) => (
+                <NavLink
+                  key={item.key}
+                  to={item.path}
+                  className={`flex mb-2 justify-start items-center gap-4 pl-5 p-2 rounded-r-md group cursor-pointer m-auto ${
+                    location.pathname === item.path
+                      ? 'bg-gray-900 text-white'
+                      : 'text-[#9498BB]'
+                  }`}
+                >
+                  {item.icon}
+                  <h3 className="text-base font-semibold">{item.label}</h3>
+                </NavLink>
+              ))}
+            </div>
+          </div>
         </div>
-
-        <div className="menu">
-          {SidebarData.map((item, index) => (
-            <Link to={item.path} key={index}>
-              <div
-                className={`${
-                  selected === index ? " menu-item active" : " menu-item"
-                }`}
-                onClick={() => setSelected(index)}
-              >
-                {item.icon}
-                <span className="span">{item.label}</span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </motion.div>
+      </Disclosure>
     </div>
   );
 };
 
-export default Sidebar;
+export default SideBar;

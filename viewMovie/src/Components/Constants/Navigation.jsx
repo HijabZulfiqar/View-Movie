@@ -7,7 +7,7 @@ export const SidebarData = [
   {
     key: "home",
     label: "Home",
-    path: "/",
+    path: "/home",
     icon: <img src={home} alt="home" />,
   },
   {

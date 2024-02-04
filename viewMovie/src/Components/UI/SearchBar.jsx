@@ -1,20 +1,12 @@
 import React, { useState } from "react";
-
+import searchIcon from "../../assets/Search.png";
 const SearchBar = () => {
   return (
-    <div className="flex  bg-[#262837] rounded-lg w-1/2 p-2 ">
-      <input
-        type="text"
-        className="flex-grow border-none outline-none bg-transparent text-lg px-2"
-        placeholder="Search here..."
-      />
-      <button
-        type="submit"
-        className="border-none outline-none bg-transparent mr-3 cursor-pointer text-lg text-gray-700"
-      >
-        <img src="./assests/Search.png" alt="Search" />
-      </button>
-    </div>
+   
+     <div className='flex items-center gap-8 border py-2 px-8  outline-none border-none  rounded-md   bg-[#262837] max-w-lg lg:w-[40rem]'>
+     <input type="text" className='w-full border-none outline-none text-lg text-gray-70  bg-transparent cursor-pointer  text-black select-none' placeholder='Search here'  />
+      <img src={searchIcon} alt="Search" />
+   </div>
   );
 };
 
