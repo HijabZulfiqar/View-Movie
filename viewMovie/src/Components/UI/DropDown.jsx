@@ -17,10 +17,10 @@ const DropDown = () => {
         </div>
         {menuOpen && <ul className='flex flex-col mt-2 gap-3 text-gray-800 border   px-12 py-2  drop-shadow-md rounded-md border-gray-100 bg-white max-w-[14.9rem] lg:max-w-none absolute z-20'>
           <li className='select-none cursor-pointer hover:text-gray-600 transition-all' >fun</li>
-          <li className='select-none cursor-pointer hover:text-gray-600 transition-all' >Americas</li>
-          <li className='select-none cursor-pointer hover:text-gray-600 transition-all' >Asia</li>
-          <li className='select-none cursor-pointer hover:text-gray-600 transition-all' >Europe</li>
-          <li className='select-none cursor-pointer hover:text-gray-600 transition-all' >Oceania</li>
+          <li className='select-none cursor-pointer hover:text-gray-600 transition-all' >sad</li>
+          <li className='select-none cursor-pointer hover:text-gray-600 transition-all' >happy</li>
+          <li className='select-none cursor-pointer hover:text-gray-600 transition-all' >emotional</li>
+          <li className='select-none cursor-pointer hover:text-gray-600 transition-all' >anger</li>
         </ul>}
       </div>
     </>
