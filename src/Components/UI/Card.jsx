@@ -16,8 +16,8 @@ const Card = ({ id,title, popularity,  poster_path }) => {
         />
       </Link>
 
-      <div className="flex flex-col bg-slate-50 px-2 lg:h-20 h-24 rounded-b-lg">
-        <div className="mt-2">
+      <div className="flex flex-col bg-slate-50 px-2 lg:h-36 h-24 rounded-b-lg">
+      <div className="mt-2  inline-flex ">
           <h3>{title}</h3>
         </div>
         <div className="flex flex-row gap-x-1 lg:gap-x-5 mt-3">
