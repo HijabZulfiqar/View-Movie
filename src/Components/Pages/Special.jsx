@@ -34,7 +34,7 @@ const Special = () => {
   return (
     <div className="h-screen z-10 relative overflow-hidden">
       <button
-        className="absolute z-50 top-12 right-20 cursor-pointer"
+        className="absolute z-50 top-12 right-10 md:right-20 cursor-pointer"
         onClick={toggleContent}
       >
         <img src={close} alt="Toggle Button" />
@@ -51,7 +51,7 @@ const Special = () => {
           </div> */}
 
           <div
-            className="z-50 w-[535px] h-screen relative flex overflow-hidden md:overflow-auto"
+            className="z-50 w-[535px] h-screen relative flex overflow-auto"
             style={{ backdropFilter: "blur(8px)", marginLeft: "auto" }}
           >
             <div className="flex flex-col absolute left-28 top-12 md:left-[180px]">
