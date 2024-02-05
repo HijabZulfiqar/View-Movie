@@ -7,10 +7,10 @@ const Card = ({ id,title, popularity,  poster_path }) => {
   const baseImageUrl = "https://image.tmdb.org/t/p/original"; 
 
   return (
-    <div className="mt-2 w-52 md:w-60 lg:w-64 min-h-[390px] p-0 flex flex-col rounded-lg">
+    <div className="mt-2 w-64 mx-auto lg:w-64 min-h-[390px] p-0 flex flex-col rounded-lg">
      <Link to={`/movies/${id}`}>
         <img
-          className="rounded-t-lg min-h-72 w-full"
+          className="rounded-t-lg min-h-72 w-full object-cover"
           src={poster_path ? `${baseImageUrl}${poster_path}` : ""}
           alt={title}
         />

@@ -32,7 +32,7 @@ const Special = () => {
   };
 
   return (
-    <div className="h-screen z-10 relative">
+    <div className="h-screen z-10 relative overflow-hidden">
       <button
         className="absolute z-50 top-12 right-20 cursor-pointer"
         onClick={toggleContent}
@@ -41,40 +41,42 @@ const Special = () => {
       </button>
 
       {isContentVisible && (
-        <div className="h-screen z-10 relative">
-          <div className="absolute inset-0 min-h-screen w-full overflow-hidden">
+        <div className="h-screen z-10 relative ">
+          {/* <div className="absolute inset-0 min-h-screen w-full overflow-hidden">
             <img
               className="w-full h-full object-cover"
               src={movieDetails.poster_path ? `${baseImageUrl}${movieDetails.poster_path}` : ""}
               alt=""
             />
-          </div>
+          </div> */}
 
           <div
-            className="z-50 w-[535px] h-screen relative flex"
+            className="z-50 w-[535px] h-screen relative flex overflow-hidden md:overflow-auto"
             style={{ backdropFilter: "blur(8px)", marginLeft: "auto" }}
           >
-            <div className="flex flex-col absolute top-12 left-[180px]">
+            <div className="flex flex-col absolute left-28 top-12 md:left-[180px]">
               <div className=" flex flex-col justify-center items-center">
-                <img className="w-[153px] mt-5 " src={movieDetails.poster_path ? `${baseImageUrl}${movieDetails.poster_path}` : ""} alt="" />
+                <img className=" w-[120px]  mt-12 ml-9 md:ml-0   md:w-[153px] md:mt-5 " src={movieDetails.poster_path ? `${baseImageUrl}${movieDetails.poster_path}` : ""} alt="" />
                 <div className=" mt-6 mr-3">
                   <img className="w-[110px] " src={votes} alt="" />
                 </div>
-                <div className="absolute text-white top-80 flex flex-col justify-center items-center ">
-                  <h1 className=" font-bold">StoryLine</h1>
-                  <div className="w-[470px] lg:ml-10 mt-4">
+                <div className="absolute mx-auto px-12  text-white top-[400px]  md:top-80 flex flex-col justify-center items-center ">
+               
+                 <h1 className=" font-bold">StoryLine</h1>
+                  <div className=" w-[340px] ml-10   md:mr-0    md:w-[470px] lg:ml-10 mt-4">
                     <p>{movieDetails.overview}</p>
                   </div>
+                 
                 </div>
               </div>
             </div>
-            <div className=" bg-white w-[391px] h-[0.8px] mt-12 absolute top-64 left-12 "></div>
+            <div className=" bg-white w-[290px]   md:w-[391px] h-[0.8px] mt-12 absolute top-72 left-12 "></div>
           </div>
         </div>
       )}
 
-      <div className="absolute inset-0 min-h-screen w-full overflow-hidden">
-        <img className="w-full h-full object-cover" src={movieDetails.poster_path ? `${baseImageUrl}${movieDetails.poster_path}` : ""} alt="" />
+      <div className="absolute inset-0 min-h-screen object-cover w-full overflow-hidden">
+        <img className="w-full h-full overflow-hidden object-cover" src={movieDetails.poster_path ? `${baseImageUrl}${movieDetails.poster_path}` : ""} alt="" />
       </div>
     </div>
   );
