@@ -11,7 +11,7 @@ const Layout = () => {
     <div className=" flex flex-row min-h-screen gap-x-0">
     <SideBar/>
     <div className=" bg-slate-900 h-screen w-screen overflow-auto ">
-    <div className="py-4 min-h-0">
+    <div className=" min-h-0">
       
         {<Outlet />}
         </div>

@@ -21,7 +21,7 @@ const Special = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data.backdrop_path, data.poster_path);
+     
       setMovieDetails(data);
     }
   }, [data]);
@@ -70,8 +70,10 @@ const Special = () => {
         </div>
       )}
 
-      <div className="absolute inset-0   overflow-hidden">
-        <img className=" min-h-screen min-w-full   object-cover" src={movieDetails.poster_path ? `${baseImageUrl}${movieDetails.poster_path}` : ""} alt="" />
+      <div className="absolute inset-0 w-full   overflow-hidden">
+        <img className=" min-h-screen min-w-full   object-cover" src={movieDetails.
+backdrop_path ? `${baseImageUrl}${movieDetails.
+  backdrop_path}` : ""} alt="" />
       </div>
     </div>
   );
