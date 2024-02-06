@@ -3,7 +3,7 @@ import Card from "./Card";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import { motion } from "framer-motion";
-const CardSection = ({ searchQuery, page }) => {
+const CardSection = ({ searchQuery, page,topRef  }) => {
   const { data: movies } = useQuery({
     queryKey: ["movies", page],
     queryFn: async () => {
@@ -37,7 +37,7 @@ const CardSection = ({ searchQuery, page }) => {
        animate={{opacity:1,translateX:0}}
        transition={{duration:1.2}}
       >
-          <section className="py-16  grid grid-cols-1 justify-center md:grid-cols-2 lg:px-0 lg:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-3 ">
+          <section ref={topRef} className="py-16  grid grid-cols-1 justify-center md:grid-cols-2 lg:px-0 lg:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-3 ">
            {(searchQuery ? searchedMovie : movies)?.map((movie) => (
         <Card
           key={movie.id}

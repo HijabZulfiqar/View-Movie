@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState, useRef } from "react";
 import Button from '../UI/Button';
 import SearchBar from '../UI/SearchBar';
 import banner_img from '../../assets/banner_img.png';
@@ -7,6 +7,7 @@ import CardSection from '../UI/CardSection';
 import Pagination from '../UI/Pagination';
 
 const Home = () => {
+   const topRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [page, setPage] = useState(1); 
 
@@ -33,9 +34,9 @@ const Home = () => {
         <h1 className=' font-Abyssinica text-white text-2xl lg:text-4xl '>Discover</h1>
         <DropDown />
       </div>
-      <CardSection searchQuery={searchQuery} page={page} />
+      <CardSection topRef={topRef} searchQuery={searchQuery} page={page} />
       <div className='flex flex-col items-center md:flex-row justify-center mx-auto'>
-        <Pagination onPageChange={handlePageChange} />
+        <Pagination topRef={topRef} onPageChange={handlePageChange} />
       </div>
     </div>
   );
