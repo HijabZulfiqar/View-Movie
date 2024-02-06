@@ -31,7 +31,7 @@ const Home = () => {
         <Button />
       </div>
       <div className='flex flex-inline  mt-5 lg: justify-between '>
-        <h1 className=' font-Abyssinica text-white text-2xl lg:text-4xl '>Discover</h1>
+        <h1 className=' font-Abyssinica mt-1 text-white text-2xl lg:text-4xl '>Discover</h1>
         <DropDown />
       </div>
       <CardSection topRef={topRef} searchQuery={searchQuery} page={page} />

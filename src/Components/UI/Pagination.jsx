@@ -12,7 +12,7 @@ const Pagination = ({ onPageChange, topRef }) => {
       topRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }
-
+ 
   return (
     <div className="flex flex-row gap-x-6">
       <button

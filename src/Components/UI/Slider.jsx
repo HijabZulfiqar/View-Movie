@@ -1,26 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React, { useState, useEffect, useRef } from 'react';
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 function Slider() {
-  const { data: trending } = useQuery({
-    queryKey: ['trending'],
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [isLoadingNextPage, setIsLoadingNextPage] = useState(false); 
+  const { data: trending, isLoading } = useQuery({
+    queryKey: ['trending', currentPage], 
     queryFn: async () => {
-      const response = await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=4d9b181699814fa8a588a90332a200ab`);
+      const response = await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=4d9b181699814fa8a588a90332a200ab&page=${currentPage}`);
       const data = await response.json();
-      console.log(data.results);
+      
       return data;
-    }
+    },
+    placeholderData: keepPreviousData,
+    enabled: !isLoadingNextPage,
   });
+  const sliderRef = useRef(null); 
 
   const slideLeft = () => {
-    var slider = document.getElementById('slider');
-    slider.scrollLeft = slider.scrollLeft - 700;
+    if (sliderRef.current) {
+      sliderRef.current.scrollLeft -= 700; 
+    }
   };
 
   const slideRight = () => {
-    var slider = document.getElementById('slider');
-    slider.scrollLeft = slider.scrollLeft + 700;
+    if (sliderRef.current) {
+      sliderRef.current.scrollLeft += 700; 
+    }
   };
 
   useEffect(() => {
@@ -31,11 +38,21 @@ function Slider() {
     return () => clearInterval(intervalId); 
   }, []); 
 
+  useEffect(() => {
+    if (!isLoading && trending && trending.results.length > 0) {
+      setIsLoadingNextPage(true);
+      setTimeout(() => {
+        setCurrentPage(prevPage => prevPage + 1);
+        setIsLoadingNextPage(false);
+      }, 21000); 
+    }
+  }, [isLoading, trending]); 
+
   return (
     <>
-      <div className=' flex items-center'>
+      <div className=' flex items-center rounded-lg min-w-full'>
         <MdChevronLeft className='text-white cursor-pointer ' onClick={slideLeft} size={40} />
-        <div id='slider' className='flex w-full  overflow-x-auto scroll-smooth scrollbar-hide'>
+        <div id='slider' ref={sliderRef} className='flex w-full  overflow-x-auto scroll-smooth scrollbar-hide'>
           {trending && trending.results.map(movie => (
             <img
               key={movie.id}
