@@ -8,10 +8,16 @@ import Pagination from '../UI/Pagination';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [page, setPage] = useState(1); 
 
   const handleSearch = (search) => {
-    console.log(`Search query: ${search}`);
+   
     setSearchQuery(search);
+    setPage(1); 
+  };
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
   };
 
   return (
@@ -27,9 +33,9 @@ const Home = () => {
         <h1 className=' font-Abyssinica text-white text-2xl lg:text-4xl '>Discover</h1>
         <DropDown />
       </div>
-      <CardSection searchQuery={searchQuery} />
+      <CardSection searchQuery={searchQuery} page={page} />
       <div className='flex flex-col items-center md:flex-row justify-center mx-auto'>
-        <Pagination/>
+        <Pagination onPageChange={handlePageChange} />
       </div>
     </div>
   );

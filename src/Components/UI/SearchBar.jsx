@@ -12,6 +12,10 @@ const SearchBar = ({ onSearch }) => {
     onSearch(searchQuery);
   };
 
+  const clearSearch = () => {
+    setSearchQuery("");
+  };
+
   return (
     <div className="flex items-center gap-8 border py-2 px-8  outline-none border-none  rounded-md   bg-[#262837] max-w-lg lg:w-[40rem]">
       <input
@@ -21,7 +25,7 @@ const SearchBar = ({ onSearch }) => {
         value={searchQuery}
         onChange={handleInputChange}
       />
-      <img src={searchIcon} alt="Search" onClick={handleSearchClick} />
+      <img src={searchIcon} alt="Search" onClick={() => { handleSearchClick(); clearSearch(); }} />
     </div>
   );
 };

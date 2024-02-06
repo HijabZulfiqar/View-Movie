@@ -14,7 +14,7 @@ const Special = () => {
         queryFn:async () => {
           const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=4d9b181699814fa8a588a90332a200ab`);
           const data = await response.json();
-           console.log(data)
+         
           return data;
         }
   });
