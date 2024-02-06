@@ -3,19 +3,14 @@ import { Link } from "react-router-dom";
 import eye from "../../assets/eye.png";
 import watchlist from "../../assets/watchlist_icon.png";
 import { motion } from "framer-motion";
-import { staggerContainer } from "../Utils/motion";
+
 
 const Card = ({ id, title, popularity, poster_path }) => {
   const baseImageUrl = "https://image.tmdb.org/t/p/original";
 
   return (
     <section>
-      <motion.div 
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0.25 }}
-      >
+     
         <motion.div
           whileHover={{ scale: 1.06 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -45,7 +40,7 @@ const Card = ({ id, title, popularity, poster_path }) => {
               </div>
             </div>
           </div>
-        </motion.div>
+       
       </motion.div>
     </section>
   );
