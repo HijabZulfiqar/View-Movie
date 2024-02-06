@@ -15,7 +15,7 @@ const Home = () => {
   };
 
   return (
-    <div className='w-full p-8 lg:p-10 lg:mt-0 mt-6'>
+    <div className='w-full p-8 lg:p-10 lg:mt-0 mt-6 mx-auto'>
       <div className=''>
         <img className="rounded-lg min-w-full" src={banner_img} alt="banner img" />
       </div>
@@ -28,7 +28,7 @@ const Home = () => {
         <DropDown />
       </div>
       <CardSection searchQuery={searchQuery} />
-      <div>
+      <div className='flex flex-col items-center md:flex-row justify-center mx-auto'>
         <Pagination/>
       </div>
     </div>

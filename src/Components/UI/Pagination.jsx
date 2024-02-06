@@ -1,14 +1,16 @@
-import React from 'react'
+import React from "react";
 
 const Pagination = () => {
   return (
-    <div>
-       <button className="inline-flex items-center gap-2 w-32 px-4 py-2  rounded-md  bg-[#262837]">
-       
-        <span>Prev</span>
+    <div className="flex flex-row gap-x-6">
+      <button class="  bg-[#262837] cursor-pointer text-white tracking-widest font-bold py-2 px-10 rounded-md">
+        Prev
+      </button>
+      <button class=" bg-[#262837] cursor-pointer text-white font-bold py-2 px-10 tracking-widest rounded-md">
+        Next
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Pagination
+export default Pagination;

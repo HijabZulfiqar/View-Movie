@@ -3,4 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/*  */
+@layer components {
+       
+    @media screen and (max-width: 370px){
+                .special{
+                    @apply  mr-10
+                }
+    }
+  }
