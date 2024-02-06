@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Card from "./Card";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { staggerContainer } from "../Utils/motion";
+
 import { motion } from "framer-motion";
 const CardSection = ({ searchQuery, page }) => {
   const { data: movies } = useQuery({
