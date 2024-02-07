@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import close from "../../assets/Close.png";
 import votes from "../../assets/Votes.png";
 import { useQuery } from '@tanstack/react-query';
@@ -76,9 +76,9 @@ backdrop_path ? `${baseImageUrl}${movieDetails.
   backdrop_path}` : ""} alt="" />
         <div className="absolute bottom-20 left-10 text-white text-4xl font-Seymour">{movieDetails.title}</div>
        
-         <NavLink to="/" >
+         <Link to="/" >
           <GoArrowLeft className="absolute bottom-[88%] lg:bottom-[85%]  left-6 text-white w-28  h-16 cursor-pointer"  />
-        </NavLink>
+        </Link>
       </div>
 
     </div>
