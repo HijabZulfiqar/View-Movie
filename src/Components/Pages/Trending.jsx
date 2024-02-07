@@ -6,6 +6,7 @@ import CardSection from '../UI/CardSection';
 const Trending = () => {
   const topRef = useRef(null);
  
+ 
   const [selectedOption, setSelectedOption] = useState("week");
   const [page, setPage] = useState(1); 
 
@@ -35,7 +36,7 @@ const Trending = () => {
        <TrendingDropDown onSelect={handleSelect} />
       </div>
     
-      <CardSection selectedOption={selectedOption} page={page} />
+      <CardSection topRef={topRef}  selectedOption={selectedOption} page={page} />
       <div className='flex flex-col items-center md:flex-row justify-center mx-auto'>
         <Pagination topRef={topRef} onPageChange={handlePageChange} />
       </div>
