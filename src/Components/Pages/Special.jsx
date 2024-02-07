@@ -34,6 +34,7 @@ const Special = () => {
 
   return (
     <div className="h-screen z-10 relative overflow-hidden">
+     
       <button
         className="absolute z-50 top-12 right-10 md:right-20 cursor-pointer"
         onClick={toggleContent}
@@ -57,8 +58,8 @@ const Special = () => {
                 </div>
                 <div className="absolute mx-auto px-12  text-white top-[370px]  md:top-80 flex flex-col justify-center items-center ">
                
-                 <h1 className=" font-bold">StoryLine</h1>
-                  <div className=" w-[340px] ml-10 special   md:mr-0    md:w-[470px] lg:ml-10 mt-4">
+                 <h1 className=" font-Abyssinica text-2xl tracking-widest">Storyline</h1>
+                  <div className=" w-[340px] ml-10 special font-Abyssinica   md:mr-0    md:w-[470px] lg:ml-10 mt-4">
                     <p>{movieDetails.overview}</p>
                   </div>
                  
@@ -71,10 +72,12 @@ const Special = () => {
       )}
 
       <div className="absolute inset-0 w-full   overflow-hidden">
-        <img className=" min-h-screen min-w-full   object-cover" src={movieDetails.
+        <img className=" min-h-screen min-w-full    object-cover" src={movieDetails.
 backdrop_path ? `${baseImageUrl}${movieDetails.
   backdrop_path}` : ""} alt="" />
+        <div className="absolute bottom-20 left-10 text-white text-4xl font-Seymour">{movieDetails.title}</div>
       </div>
+
     </div>
   );
 };

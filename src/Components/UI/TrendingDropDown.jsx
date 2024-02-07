@@ -17,7 +17,7 @@ export default function TrendingDropDown({ onSelect }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-3 rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm ">
+        <Menu.Button className="inline-flex w-full justify-center gap-x-3 rounded-md  px-3 py-2 text-sm font-Abyssinica text-white shadow-sm ">
           {selectedOption || 'Options'} 
           <img className='w-3 mt-2 ' src={dd} alt='' />
         </Menu.Button>

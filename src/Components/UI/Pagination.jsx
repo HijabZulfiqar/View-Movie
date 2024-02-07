@@ -17,7 +17,7 @@ const Pagination = ({ onPageChange, topRef }) => {
     <div className="flex flex-row gap-x-6">
       <button
         onClick={() => handlePage(-1)}
-        className={`bg-[#262837] cursor-pointer text-white tracking-widest font-bold py-2 px-10 rounded-md ${
+        className={`bg-[#262837] cursor-pointer text-white tracking-widest font-Abyssinica py-2 px-10 rounded-md ${
           page <= 1 ? "opacity-50 cursor-not-allowed" : ""
         }`}
         disabled={page <= 1}
