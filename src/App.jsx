@@ -18,8 +18,7 @@ const router = createBrowserRouter([
        { path: "/sidebar", element: <Sidebar/> },
         {path:"/",element:<Home/>
       },
-    //   {path:"/home",element:<Home/>
-    // },
+   
       { path:"/trending",element: <Trending/>},
       { path:"/suggestions",element:<Suggestions/> },
       { path:"/categories",element: <Category/>},

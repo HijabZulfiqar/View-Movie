@@ -59,11 +59,11 @@ const CardSection = ({ searchQuery, page, topRef, selectedOption,activeCategory 
         `https://api.themoviedb.org/3/movie/${activeCategory}?api_key=4d9b181699814fa8a588a90332a200ab&page=${page}`
       );
       const data = await response.json();
-      console.log(data.results);
+     
       return data.results;
     },
     placeholderData: keepPreviousData,
-    enabled: Boolean(activeCategory), // Ensure the query is only enabled when activeCategory has a value
+    enabled: Boolean(activeCategory), 
   });
 
   // const dataToMap = searchQuery ? searchedMovie : trendingMovie || movies || [];
