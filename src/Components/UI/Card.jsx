@@ -18,7 +18,7 @@ const Card = ({ id, title, popularity, poster_path }) => {
           <div className="mt-2 w-64 mx-auto lg:w-64 min-h-[390px] p-0 flex flex-col rounded-lg">
             <Link to={`/movies/${id}`}>
               <img
-                className="rounded-t-lg min-h-72 w-full object-cover"
+                className="rounded-t-lg min-h-72   w-full object-cover"
                 src={poster_path ? `${baseImageUrl}${poster_path}` : ""}
                 alt={title}
               />

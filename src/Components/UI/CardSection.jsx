@@ -3,7 +3,8 @@ import Card from "./Card";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 
-const CardSection = ({ searchQuery, page, topRef, selectedOption }) => {
+const CardSection = ({ searchQuery, page, topRef, selectedOption,activeCategory }) => {
+   console.log(activeCategory)
   // Regular query for movies
   const { data: movies } = useQuery({
     queryKey: ["movies", page],
@@ -26,7 +27,7 @@ const CardSection = ({ searchQuery, page, topRef, selectedOption }) => {
         `https://api.themoviedb.org/3/search/movie?api_key=4d9b181699814fa8a588a90332a200ab&query=${searchQuery}`
       );
       const data = await response.json();
-      console.log(data.results);
+    
       return data.results;
     },
     placeholderData: keepPreviousData,
@@ -49,30 +50,56 @@ const CardSection = ({ searchQuery, page, topRef, selectedOption }) => {
     enabled: Boolean(selectedOption),
   });
 
-  
-  const dataToMap = searchQuery ? searchedMovie : trendingMovie || movies || [];
+  //query for category movies;
+  const { data: category } = useQuery({
+    queryKey: ["movies", activeCategory, page],
+    queryFn: async () => {
+      if (!activeCategory) return []; // Exit early if activeCategory is not set
+      const response = await fetch(
+        `https://api.themoviedb.org/3/movie/${activeCategory}?api_key=4d9b181699814fa8a588a90332a200ab&page=${page}`
+      );
+      const data = await response.json();
+      console.log(data.results);
+      return data.results;
+    },
+    placeholderData: keepPreviousData,
+    enabled: Boolean(activeCategory), // Ensure the query is only enabled when activeCategory has a value
+  });
+
+  // const dataToMap = searchQuery ? searchedMovie : trendingMovie || movies || [];
+  let dataToMap;
+  if (searchQuery) {
+    dataToMap = searchedMovie;
+  } else if (selectedOption) {
+    dataToMap = trendingMovie;
+  }else if (activeCategory) {
+    dataToMap = category;
+  }
+   else {
+    dataToMap = movies;
+  }
 
   return (
     <motion.div
-      initial={{ opacity: 0, translateX: -50 }}
-      animate={{ opacity: 1, translateX: 0 }}
-      transition={{ duration: 1.2 }}
+    initial={{ opacity: 0, translateX: -50 }}
+    animate={{ opacity: 1, translateX: 0 }}
+    transition={{ duration: 1.2 }}
+  >
+    <section
+      ref={topRef}
+      className="py-16 grid grid-cols-1 justify-center md:grid-cols-2 lg:px-0 xl:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-3"
     >
-      <section
-        ref={topRef}
-        className="py-16  grid grid-cols-1 justify-center md:grid-cols-2 lg:px-0 lg:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-3 "
-      >
-        {dataToMap.map((movie) => (
-          <Card
-            key={movie.id}
-            id={movie.id}
-            title={movie.title}
-            popularity={movie.popularity}
-            poster_path={movie.poster_path}
-          />
-        ))}
-      </section>
-    </motion.div>
+      {dataToMap?.map((movie) => (
+        <Card
+          key={movie.id}
+          id={movie.id}
+          title={movie.title}
+          popularity={movie.popularity}
+          poster_path={movie.poster_path}
+        />
+      ))}
+    </section>
+  </motion.div>
   );
 };
 

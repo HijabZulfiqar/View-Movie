@@ -31,7 +31,7 @@ const Trending = () => {
         </div>
         
         <div className='flex flex-inline  mt-5 lg: justify-between '>
-        <h1 className=' font-Abyssinica mt-1 text-white text-2xl lg:text-4xl '>Discover</h1>
+        <h1 className=' font-Abyssinica tracking-wider mt-1 text-white text-2xl lg:text-4xl '>Trending</h1>
        {/* DropDown */}
        <TrendingDropDown onSelect={handleSelect} />
       </div>
