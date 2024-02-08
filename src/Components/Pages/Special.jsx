@@ -30,7 +30,6 @@ const Special = () => {
   const toggleContent = () => {
     setIsContentVisible(!isContentVisible);
   };
-
   return (
     <div className="h-screen z-10 relative overflow-hidden">
      
@@ -74,11 +73,13 @@ const Special = () => {
         <img className=" min-h-screen min-w-full    object-cover" src={movieDetails.
 backdrop_path ? `${baseImageUrl}${movieDetails.
   backdrop_path}` : ""} alt="" />
-        <div className="absolute bottom-20 left-10 text-white text-4xl font-Seymour">{movieDetails.title}</div>
+        <div className="absolute bottom-20 left-10 text-white text-2xl md:text-4xl font-Seymour">{movieDetails.title}</div>
        
          <Link to="/" >
           <GoArrowLeft className="absolute bottom-[88%] lg:bottom-[85%]  left-6 text-white w-28  h-16 cursor-pointer"  />
+       
         </Link>
+        
       </div>
 
     </div>
