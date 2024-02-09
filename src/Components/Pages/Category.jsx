@@ -23,7 +23,7 @@ const Category = () => {
         <div className=' mt-5'>
         <CategoryButton onSelectCategory={handleCategoryChange} />
         </div>
-       <h1 className=' font-Abyssinica justify-center items-center text-center lg:text-start  md:justify-normal mt-5 tracking-widest text-white text-3xl lg:text-5xl '>Trending</h1>
+       <h1 className=' font-Abyssinica justify-center items-center text-center lg:text-start  md:justify-normal mt-8 tracking-widest text-white text-3xl lg:text-5xl '>Category</h1>
          <div>
          <CardSection topRef={topRef}  page={page} activeCategory={activeCategory} />
          </div>

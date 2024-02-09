@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Disclosure } from "@headlessui/react";
 import logo from "../../assets/brand_logo.png";
 import { NavLink, useLocation } from "react-router-dom";
 import { SidebarData } from "../Constants/Navigation";
-import { useState } from "react";
 
 const SideBar = () => {
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [suggestionsClicked, setSuggestionsClicked] = useState(false);
+
+  const handleSuggestionsClick = () => {
+    if (!suggestionsClicked) {
+      setSuggestionsClicked(true);
+    }
+  };
 
   return (
     <div className=" ">
@@ -29,11 +35,16 @@ const SideBar = () => {
               </div>
               <div className="my-4 mt-5 pb-4">
                 {SidebarData.map((item) => (
-                  item.path === "/suggestions" && location.pathname === "/suggestions" ? 
+                  item.path === "/suggestions" ? 
                   <NavLink
                     key={item.key}
-                    to="/signup"  
-                    className={`flex mb-2 justify-start items-center gap-4 pl-5 p-2 rounded-r-md group cursor-pointer m-auto bg-gray-900 text-white`}
+                    to={!suggestionsClicked ? "/login" : item.path}
+                    onClick={handleSuggestionsClick}
+                    className={`flex mb-2 justify-start items-center gap-4 pl-5 p-2 rounded-r-md group cursor-pointer m-auto ${
+                      location.pathname === item.path
+                        ? "bg-gray-900 text-white"
+                        : "text-[#9498BB]"
+                    }`}
                   >
                     {item.icon}
                     <h3 className="text-base font-semibold">{item.label}</h3>
