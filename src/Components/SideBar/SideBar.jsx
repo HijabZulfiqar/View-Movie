@@ -10,15 +10,11 @@ const SideBar = () => {
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
   return (
     <div className=" ">
       <Disclosure>
         <Disclosure.Button
-          onClick={toggleSidebar}
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           className="absolute lg:hidden top-4 right-4 inline-flex items-center peer justify-center rounded-md p-2 text-white hover:bg-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white group"
         >
           <GiHamburgerMenu className="h-6 w-6" aria-hidden="true" />
@@ -33,6 +29,16 @@ const SideBar = () => {
               </div>
               <div className="my-4 mt-5 pb-4">
                 {SidebarData.map((item) => (
+                  item.path === "/suggestions" && location.pathname === "/suggestions" ? 
+                  <NavLink
+                    key={item.key}
+                    to="/signup"  
+                    className={`flex mb-2 justify-start items-center gap-4 pl-5 p-2 rounded-r-md group cursor-pointer m-auto bg-gray-900 text-white`}
+                  >
+                    {item.icon}
+                    <h3 className="text-base font-semibold">{item.label}</h3>
+                  </NavLink>
+                  :
                   <NavLink
                     key={item.key}
                     to={item.path}

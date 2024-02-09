@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
-const LoginForm = () => {
-  // const navigate = useNavigate();
 
-  // function handleClick() {
-  //   navigate("/signup");
-  //    console.log('The link was clicked.')
-  // }
+const LoginForm = () => {
+
   const { data: movies } = useQuery({
     queryKey: ["movies", 40],
     queryFn: async () => {
