@@ -43,7 +43,7 @@ const LoginForm = () => {
             <input className='border text-black  rounded relative bg-gray-100 p-2' type="password" />
           </div>
           <button className='w-full py-3 mt-8 bg-[#262837] relative text-white'>Sign In</button>
-          <p className='flex items-center mt-2'><input className='mr-2' type="checkbox"  />Remember Me</p>
+          <p className='flex items-center mt-2'><input className='mr-2 relative ' type="checkbox"  />Remember Me</p>
           <p className='text-center mt-8'>Not a member? <Link to="/signup"  ><button className='cursor-pointer relative border-b-2' >Sign up now</button></Link></p>
        
         </form>
