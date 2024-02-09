@@ -38,7 +38,7 @@ const LoginForm = () => {
       {backdropPath && <img className='absolute w-full h-full object-cover mix-blend-overlay' src={backdropPath} alt="Background" />}
       <div className='flex justify-center items-center h-full'>
         <form className='max-w-[400px] text-white font-Abyssinica w-full mx-auto bg-slate-900  p-8'>
-          <h2 className='text-4xl font-bold text-center py-4'>Register Here</h2>
+          <h2 className='text-4xl font-bold text-center py-4'>Register Here </h2>
           <div className='flex flex-col mb-4'>
             <label>Username</label>
             <input className='border text-black rounded relative bg-gray-100 p-2' type="text" />
