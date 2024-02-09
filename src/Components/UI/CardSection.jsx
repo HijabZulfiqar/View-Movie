@@ -4,7 +4,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 
 const CardSection = ({ searchQuery, page, topRef, selectedOption,activeCategory }) => {
-   console.log(activeCategory)
+  
   // Regular query for movies
   const { data: movies } = useQuery({
     queryKey: ["movies", page],

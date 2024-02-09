@@ -29,7 +29,7 @@ const SideBar = () => {
           >
             <div className="flex flex-col justify-start item-center">
               <div className="text-base text-center cursor-pointer font-bold text-white pb-4 w-full">
-                <img src={logo} alt="" srcSet="" />
+                <img src={logo} alt="logp" />
               </div>
               <div className="my-4 mt-5 pb-4">
                 {SidebarData.map((item) => (
