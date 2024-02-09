@@ -1,11 +1,7 @@
-import React from "react"
-import Layout from "./Components/Layout/Layout"
+import React from "react";
+import Layout from "./Components/Layout/Layout";
 
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Link,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
 import Sidebar from "./Components/SideBar/SideBar";
 import Home from "./Components/Pages/Home";
 import Special from "./Components/Pages/Special";
@@ -17,34 +13,32 @@ import path from "path";
 import SignupForm from "./Components/auth/signupForm";
 import Watchlist from "./Components/Pages/Watchlist";
 const router = createBrowserRouter([
-  { path: "/", element:<Layout/> ,
-      children:[
-       { path: "/sidebar", element: <Sidebar/> },
-        {path:"/",element:<Home/>
-      },
-   
-      { path:"/trending",element: <Trending/>},
-      { path:"/suggestions",element:<Suggestions/> },
-      { path:"/categories",element: <Category/>},
-       {path:"/home",element:<Home/>},
-      ]
- },
- 
-  {path:"/movies/:id", element:<Special/>  },
-     {path:"/login",element:<LoginForm/>},
-     {path:"/signup",element:<SignupForm/>},
-     {path:"/watchlist",element:<Watchlist/>},
-  
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { path: "/sidebar", element: <Sidebar /> },
+      { path: "/", element: <Home /> },
+
+      { path: "/trending", element: <Trending /> },
+      { path: "/suggestions", element: <Suggestions /> },
+      { path: "/categories", element: <Category /> },
+      { path: "/home", element: <Home /> },
+    ],
+  },
+
+  { path: "/movies/:id", element: <Special /> },
+  { path: "/login", element: <LoginForm /> },
+  { path: "/signup", element: <SignupForm /> },
+  { path: "/watchlist", element: <Watchlist /> },
 ]);
 
-
 function App() {
-  
   return (
-    <div >
-        <RouterProvider router={router}/>
+    <div>
+      <RouterProvider router={router} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
