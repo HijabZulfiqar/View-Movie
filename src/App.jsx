@@ -15,6 +15,7 @@ import Category from "./Components/Pages/Category";
 import LoginForm from "./Components/auth/loginForm";
 import path from "path";
 import SignupForm from "./Components/auth/signupForm";
+import Watchlist from "./Components/Pages/Watchlist";
 const router = createBrowserRouter([
   { path: "/", element:<Layout/> ,
       children:[
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
   {path:"/movies/:id", element:<Special/>  },
      {path:"/login",element:<LoginForm/>},
      {path:"/signup",element:<SignupForm/>},
+     {path:"/watchlist",element:<Watchlist/>},
   
 ]);
 

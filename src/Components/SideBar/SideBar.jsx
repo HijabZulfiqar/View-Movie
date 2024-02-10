@@ -1,19 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Disclosure } from "@headlessui/react";
 import logo from "../../assets/brand_logo.png";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom"; 
+import { account } from "../../appwrite/appwriteConfig";
 import { SidebarData } from "../Constants/Navigation";
 
 const SideBar = () => {
-  const location = useLocation();
+  const location = useLocation(); 
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [suggestionsClicked, setSuggestionsClicked] = useState(false);
+  const [userdetail, setUserDetail] = useState(null);
 
   const handleSuggestionsClick = () => {
     if (!suggestionsClicked) {
       setSuggestionsClicked(true);
     }
+  };
+
+  useEffect(() => {
+    const promise = account.get();
+
+    promise.then(
+      function (response) {
+        
+        setUserDetail(response);
+      },
+      function (error) {
+        console.log(error); // Failure
+      }
+    );
+
+   
+    const sessionTimeout = setTimeout(() => {
+      SessionExpire();
+    }, 3600000); 
+
+   
+    return () => clearTimeout(sessionTimeout);
+  }, []);
+
+  const SessionExpire = async function () {
+    
+      await account.deleteSession("current");
+      
+      navigate("/");
+   
   };
 
   return (
@@ -35,33 +68,34 @@ const SideBar = () => {
               </div>
               <div className="my-4 mt-5 pb-4">
                 {SidebarData.map((item) => (
-                  item.path === "/suggestions" ? 
-                  <NavLink
-                    key={item.key}
-                    to={!suggestionsClicked ? "/login" : item.path}
-                    onClick={handleSuggestionsClick}
-                    className={`flex mb-2 justify-start items-center gap-4 pl-5 p-2 rounded-r-md group cursor-pointer m-auto ${
-                      location.pathname === item.path
-                        ? "bg-gray-900 text-white"
-                        : "text-[#9498BB]"
-                    }`}
-                  >
-                    {item.icon}
-                    <h3 className="text-base font-semibold">{item.label}</h3>
-                  </NavLink>
-                  :
-                  <NavLink
-                    key={item.key}
-                    to={item.path}
-                    className={`flex mb-2 justify-start items-center gap-4 pl-5 p-2 rounded-r-md group cursor-pointer m-auto ${
-                      location.pathname === item.path
-                        ? "bg-gray-900 text-white"
-                        : "text-[#9498BB]"
-                    }`}
-                  >
-                    {item.icon}
-                    <h3 className="text-base font-semibold">{item.label}</h3>
-                  </NavLink>
+                  item.path === "/suggestions" && !userdetail ? (
+                    <NavLink
+                      key={item.key}
+                      to={!suggestionsClicked ? "/signup" : item.path}
+                      onClick={handleSuggestionsClick}
+                      className={`flex mb-2 justify-start items-center gap-4 pl-5 p-2 rounded-r-md group cursor-pointer m-auto ${
+                        location.pathname === item.path
+                          ? "bg-gray-900 text-white"
+                          : "text-[#9498BB]"
+                      }`}
+                    >
+                      {item.icon}
+                      <h3 className="text-base font-semibold">{item.label}</h3>
+                    </NavLink>
+                  ) : (
+                    <NavLink
+                      key={item.key}
+                      to={item.path}
+                      className={`flex mb-2 justify-start items-center gap-4 pl-5 p-2 rounded-r-md group cursor-pointer m-auto ${
+                        location.pathname === item.path
+                          ? "bg-gray-900 text-white"
+                          : "text-[#9498BB]"
+                      }`}
+                    >
+                      {item.icon}
+                      <h3 className="text-base font-semibold">{item.label}</h3>
+                    </NavLink>
+                  )
                 ))}
               </div>
             </div>
