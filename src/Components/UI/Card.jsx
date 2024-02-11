@@ -21,16 +21,9 @@ const Card = ({ id, title, popularity, poster_path }) => {
         title: title,
       }
     );
-    console.log(promise);
+    
 
-    promise.then(
-      function (response) {
-        console.log(response);
-      },
-      function (error) {
-        console.log(error);
-      }
-    );
+    
   };
 
   const baseImageUrl = "https://image.tmdb.org/t/p/original";
