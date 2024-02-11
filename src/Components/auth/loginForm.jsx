@@ -63,9 +63,10 @@ const LoginForm = () => {
               }}
             />
           </div>
-          <button 
-           onClick={loginUser}
-          className="w-full py-3 mt-8 bg-[#262837] relative text-white">
+          <button
+            onClick={loginUser}
+            className="w-full py-3 mt-8 bg-[#262837] relative text-white"
+          >
             Log In
           </button>
           <p className="flex items-center mt-2">
