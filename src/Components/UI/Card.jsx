@@ -14,8 +14,8 @@ const Card = ({ id, title, popularity, poster_path }) => {
   const handleWatchList = async (e) => {
     e.preventDefault();
     const promise = databases.createDocument(
-      "65c752e2b5adfb82967f",
-      "65c759203efb0d67d1ab",
+      `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
+      `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`,
       uuidv4(),
       {
         title: title,
@@ -44,17 +44,17 @@ const Card = ({ id, title, popularity, poster_path }) => {
         <div className="mt-2 w-64 mx-auto lg:w-64 min-h-[390px] p-0 flex flex-col rounded-lg">
           <Link to={`/movies/${id}`}>
             <img
-              className="rounded-t-lg min-h-72   w-full object-cover"
+              className="object-cover w-full rounded-t-lg min-h-72"
               src={poster_path ? `${baseImageUrl}${poster_path}` : ""}
               alt={title}
             />
           </Link>
 
           <div className="flex flex-col font-Abyssinica text-white bg-[#101118] px-2 lg:h-28 h-24 rounded-b-lg">
-            <div className="mt-2  inline-flex">
+            <div className="inline-flex mt-2">
               <h3>{title}</h3>
             </div>
-            <div className="flex flex-row gap-x-1 lg:gap-x-5 mt-3">
+            <div className="flex flex-row mt-3 gap-x-1 lg:gap-x-5">
               <div className="inline-flex">
                 <img className="mt-1" src={eye} alt="" />
                 <p>{popularity} popularity</p>

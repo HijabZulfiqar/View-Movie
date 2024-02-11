@@ -6,5 +6,10 @@ import { Client, Account, Databases } from "appwrite";
 // };
 export const client = new Client();
 export const account = new Account(client);
-export const databases = new Databases(client, '65c60b0cd4b92a00f23f');
-client.setEndpoint('https://cloud.appwrite.io/v1').setProject('65c6083373fc850768a0');
+export const databases = new Databases(
+  client,
+  `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`
+);
+client
+  .setEndpoint(`${import.meta.env.VITE_APPWRITE_PROJECT_URL}`)
+  .setProject(`${import.meta.env.VITE_APPWRITE_PROJECT_ID}`);
