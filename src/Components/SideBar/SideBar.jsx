@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Disclosure } from "@headlessui/react";
 import logo from "../../assets/brand_logo.png";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom"; 
 import { account } from "../../appwrite/appwriteConfig";
 import { SidebarData } from "../Constants/Navigation";
 
 const SideBar = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const location = useLocation(); 
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [suggestionsClicked, setSuggestionsClicked] = useState(false);
@@ -21,47 +20,37 @@ const SideBar = () => {
   };
 
   useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const response = await account.getSession("current");
-        const createdAt = new Date(response.createdAt * 1000);
-        const expiresIn = 3600000; // 1 hour in milliseconds
-        const timeRemaining = expiresIn - (Date.now() - createdAt.getTime());
+    const promise = account.get();
 
-        if (timeRemaining > 0) {
-          setTimeout(SessionExpire, timeRemaining);
-        } else {
-          SessionExpire();
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchSession();
-  }, []);
-
-  useEffect(() => {
-   
-    const fetchUserDetail = async () => {
-      try {
-        const response = await account.get();
+    promise.then(
+      function (response) {
+        
         setUserDetail(response);
-      } catch (error) {
-        console.log(error);
+      },
+      function (error) {
+        console.log(error); // Failure
       }
-    };
+    );
 
-    fetchUserDetail();
+   
+    const sessionTimeout = setTimeout(() => {
+      SessionExpire();
+    }, 3600000); 
+
+   
+    return () => clearTimeout(sessionTimeout);
   }, []);
 
-  const SessionExpire = async () => {
-    await account.deleteSession("current");
-    navigate("/");
+  const SessionExpire = async function () {
+    
+      await account.deleteSession("current");
+      
+      navigate("/");
+   
   };
 
   return (
-    <div>
+    <div className=" ">
       <Disclosure>
         <Disclosure.Button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -71,11 +60,11 @@ const SideBar = () => {
         </Disclosure.Button>
         {isSidebarOpen && (
           <div
-            className={`pl-5 h-screen bg-[#232533] font-Abyssinica z-20 md:z-0 fixed lg:relative top-0 -left-96 lg:left-0 w-60 peer-focus:left-0 peer:transition ease-out delay-150 duration-200`}
+            className={`p-6 h-screen bg-[#232533] font-Abyssinica z-20 md:z-0 fixed lg:relative top-0 -left-96 lg:left-0 w-60 peer-focus:left-0 peer:transition ease-out delay-150 duration-200`}
           >
             <div className="flex flex-col justify-start item-center">
               <div className="text-base text-center cursor-pointer font-bold text-white pb-4 w-full">
-                <img src={logo} alt="logo" />
+                <img src={logo} alt="logp" />
               </div>
               <div className="my-4 mt-5 pb-4">
                 {SidebarData.map((item) => (

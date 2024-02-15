@@ -10,7 +10,7 @@ const Watchlist = () => {
     );
     promise.then(
       function (response) {
-       
+       console.log(response)
         setWatchList(response.documents);
       },
       function (error) {
