@@ -91,10 +91,7 @@ const SignupForm = () => {
            className="w-full py-3 mt-8 bg-[#262837] relative text-white">
             Sign Up
           </button>
-          <p className="flex items-center mt-2">
-            <input className="mr-2 relative " type="checkbox" />
-            Remember Me
-          </p>
+         
           <p className="text-center mt-8">
             Not a member?{" "}
             <Link to="/login">
