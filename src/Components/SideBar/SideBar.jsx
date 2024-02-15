@@ -60,7 +60,7 @@ const SideBar = () => {
         </Disclosure.Button>
         {isSidebarOpen && (
           <div
-            className={`p-6 h-screen bg-[#232533] font-Abyssinica z-20 md:z-0 fixed lg:relative top-0 -left-96 lg:left-0 w-60 peer-focus:left-0 peer:transition ease-out delay-150 duration-200`}
+            className={ ` pl-5  h-screen bg-[#232533] font-Abyssinica z-20 md:z-0 fixed lg:relative top-0 -left-96 lg:left-0 w-60 peer-focus:left-0 peer:transition ease-out delay-150 duration-200`}
           >
             <div className="flex flex-col justify-start item-center">
               <div className="text-base text-center cursor-pointer font-bold text-white pb-4 w-full">

@@ -93,7 +93,7 @@ const Special = () => {
         </div>
 
         <Link to="/">
-          <GoArrowLeft className="absolute bottom-[88%] lg:bottom-[85%]  left-6 text-white w-28  h-16 cursor-pointer" />
+          <GoArrowLeft className="absolute z-50  bottom-[88%] lg:bottom-[85%]  left-6 text-white w-28  h-16 cursor-pointer" />
         </Link>
       </div>
     </div>

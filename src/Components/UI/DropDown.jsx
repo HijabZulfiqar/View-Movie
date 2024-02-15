@@ -36,7 +36,7 @@ const DropDown = () => {
 
   return (
     <>
-      <div className="relative">
+      <div className="relative cursor-pointer">
         <div
           className="flex items-center gap-5 px-4 py-2 max-w-[14.9rem] lg:max-w-none"
           onClick={() => setMenuOpen((prevState) => !prevState)}
