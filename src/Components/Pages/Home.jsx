@@ -21,7 +21,7 @@ const Home = () => {
   };
 
   return (
-    <div className="w-full p-8 lg:px-10 lg:mt-0 mt-6 mx-auto">
+    <div className="w-full scroll-smooth p-8 lg:px-10 lg:mt-0 mt-6 mx-auto">
       <div className="">
         <img
           className="rounded-lg min-w-full"

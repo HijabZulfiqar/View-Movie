@@ -1,40 +1,67 @@
 import React, { useState, useEffect } from "react";
 import { databases } from "../../appwrite/appwriteConfig";
+import { Link } from "react-router-dom";
+
 
 const Watchlist = () => {
   const [watchList, setWatchList] = useState([]);
+
   useEffect(() => {
     const promise = databases.listDocuments(
       `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
       `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`
     );
     promise.then(
-      function (response) {
-       console.log(response)
+      (response) => {
         setWatchList(response.documents);
       },
-      function (error) {
+      (error) => {
         console.log(error);
       }
     );
   }, []);
+
   const handleDelete = async (id) => {
-    let promise = databases.deleteDocument(
+    const promise = databases.deleteDocument(
       `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
       `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`,
       id
     );
     promise.then(
-      function (response) {
+      (response) => {
         console.log(response);
         const newWatchList = watchList.filter((item) => item.$id !== id);
         setWatchList(newWatchList);
       },
-      function (error) {
+      (error) => {
         console.log(error);
       }
     );
   };
+
+  
+  const addMovieToWatchlist = async (movie) => {
+   
+    const movieExists = watchList.some((item) => item.title === movie.title);
+    if (!movieExists) {
+     
+      const promise = databases.createDocument(
+        `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
+        `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`,
+        movie
+      );
+      promise.then(
+        (response) => {
+         
+          setWatchList([...watchList, response]);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } 
+  };
+
   return (
     <div className="w-screen h-screen overflow-auto bg-slate-900">
       <h1 className="justify-center mt-8 text-2xl text-center text-white font-Abyssinica lg:text-4xl">
@@ -55,7 +82,7 @@ const Watchlist = () => {
                   onClick={() => handleDelete(item.$id)}
                   className="flex items-center justify-center mt-3 text-center"
                 >
-                  <div className="font-Abyssinica w-32 py-2 rounded-md bg-[#1b1d2c]">
+                  <div className="font-Abyssinica cursor-pointer w-32 py-2 rounded-md bg-[#1b1d2c]">
                     <p>Remove</p>
                   </div>
                 </div>
@@ -64,6 +91,14 @@ const Watchlist = () => {
           ))}
         </div>
       </div>
+      <Link to="/" >
+      <button
+       
+        className=" flex  justify-center items-center text-center mt-5 mx-auto  bg-[#262837] cursor-pointer text-white font-bold py-2 px-10 tracking-widest rounded-md"
+      >
+       Back to home page
+      </button>
+      </Link>
     </div>
   );
 };
