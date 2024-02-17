@@ -41,7 +41,7 @@ const CardSection = ({
         }&query=${query}`
       );
       const data = await response.json();
-      console.log("API Response:", data.results);
+     
       return data.results;
     },
     placeholderData: keepPreviousData,

@@ -63,8 +63,8 @@ const SideBar = () => {
             className={`pl-5 h-screen bg-[#232533] font-Abyssinica z-20 md:z-0 fixed lg:relative top-0 -left-96 lg:left-0 w-60 peer-focus:left-0 peer:transition ease-out delay-150 duration-200`}
           >
             <div className="flex flex-col justify-start item-center">
-              <div className="text-base text-center cursor-pointer font-bold text-white pb-4 w-full">
-                <img src={logo} alt="logp" />
+              <div className="text-base text-center cursor-pointer font-bold  text-white pt-8 pb-4 w-full">
+                <img src={logo} alt="logo" />
               </div>
               <div className="my-4 mt-5 pb-4">
                 {SidebarData.map((item) => (

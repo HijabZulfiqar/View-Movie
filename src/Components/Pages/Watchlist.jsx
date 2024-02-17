@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const Watchlist = () => {
   const [watchList, setWatchList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const promise = databases.listDocuments(
@@ -14,12 +15,15 @@ const Watchlist = () => {
     promise.then(
       (response) => {
         setWatchList(response.documents);
+        setLoading(false);
       },
       (error) => {
-        console.log(error);
+       
+        setLoading(false);
       }
     );
   }, []);
+  
 
   const handleDelete = async (id) => {
     const promise = databases.deleteDocument(
@@ -29,7 +33,7 @@ const Watchlist = () => {
     );
     promise.then(
       (response) => {
-        console.log(response);
+        
         const newWatchList = watchList.filter((item) => item.$id !== id);
         setWatchList(newWatchList);
       },

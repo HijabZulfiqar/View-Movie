@@ -10,12 +10,10 @@ const SearchBar = ({ onSearch }) => {
 
   const handleSearchClick = () => {
     onSearch(searchQuery);
-    clearSearch();
+   
   };
 
-  // const clearSearch = () => {
-  //   setSearchQuery("");
-  // };
+  
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {

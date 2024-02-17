@@ -9,7 +9,7 @@ import { databases } from "../../appwrite/appwriteConfig";
 import watchlist from "../../assets/watchlist_icon.png";
 
 const Card = ({ id, title, popularity, poster_path }) => {
-  console.log("Rendering Card:", { id, title, popularity, poster_path });
+ 
   const [watchList, setWatchList] = useState([]);
 
   useEffect(() => {

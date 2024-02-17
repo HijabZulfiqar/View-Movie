@@ -21,6 +21,7 @@ export default {
     fontFamily: {
       Abyssinica: ["Abyssinica SIL", "serif"],
       Seymour: ["Seymour One", "sans-serif"],
+      acme: ["Acme", "sans-serif"],
     },
     extend: {
      

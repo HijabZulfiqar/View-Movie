@@ -3,7 +3,7 @@ import SuggestionButton from '../UI/SuggestionButton';
 import { categoryTypes } from '../Constants/CategoryTypes';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import CardSection from '../UI/CardSection';
-
+import { toast } from 'react-toastify';
 const Suggestions = () => {
   const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -22,7 +22,7 @@ const Suggestions = () => {
   async function fetchDataFromGeminiProAPI() {
     try {
       if (!inputText && selectedCategories.length === 0) {
-        alert("Please enter text or select a category!");
+        toast.info("Please enter text or select a category!");
         return;
       }
       setLoading(true);
@@ -36,23 +36,22 @@ const Suggestions = () => {
       const text = await result.response.text();
       setLoading(false);
   
-      // Extract just the movie name from the response
-      let movieName = text.split('\n')[0].trim(); // Assuming the first line contains the movie name
-  
-      // Remove any asterisks and the year from the movie name
+      let movieName = text.split('\n')[0].trim(); 
       movieName = movieName.replace(/\*/g, '').trim(); // Remove asterisks
       movieName = movieName.replace(/\(\d{4}\)/, '').trim(); // Remove the year in parentheses
   
       setData([movieName]);
-      console.log("Updated Data State:", [movieName]);
+      setSelectedCategories([]); // Clear selected categories
     } catch (error) {
       setLoading(false);
       console.error("fetchDataFromGeminiAPI error: ", error);
     }
-  }
+}
+
 
   return (
     <>
+    <h5 className='  w-full p-8  mx-auto font-acme justify-center items-center text-center lg:text-start  md:justify-normal mt-5 md:mt-3 tracking-widest text-white text-base md:text-md  '>Select all categories that you want the movie to include.</h5>
       <div className='w-full scroll-smooth justify-center items-center gap-2 md:gap-3 gap-y-2 p-8 lg:px-10 lg:mt-0 mt-6 mx-auto grid grid-cols-2 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-9'>
         {categoryTypes.map((category) => (
           <SuggestionButton
@@ -65,20 +64,24 @@ const Suggestions = () => {
       </div>
       <div className='flex  flex-col items-center gap-4  mx-auto'>
         <textarea 
-          className=' w-3/4 h-14  p-4 text-black bg-[#747474] rounded-md ' 
-          placeholder='Type your suggestions here...'
+          className=' w-3/4 md:h-14 h-16  p-4 text-black bg-[#747474] rounded-md ' 
+          placeholder="Write any other specifications here. Be as picky as you'd like...."
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
         ></textarea>
         <button 
-          className="inline-flex items-center justify-center text-center font-Abyssinica gap-2 w-3/4  px-4 py-2 rounded-md bg-[#262837]"
+          className="inline-flex items-center text-[#a6aad0] justify-center text-center font-Abyssinica gap-2 w-3/4  px-4 py-2 rounded-md bg-[#262837]"
           onClick={fetchDataFromGeminiProAPI}
           disabled={loading}
         >
-          {loading ? "Loading..." : "Curate My List"}
+          {loading ? "Loading..." : "Discover Suggestions"}
         </button>
-        <CardSection suggestedMovies={data} />
+       
       </div>
+     <div className=' w-full p-8 lg:px-10 lg:mt-0 mt-6 mx-auto'>
+      <h1 className=' font-acme justify-center items-center text-center lg:text-start  md:justify-normal mt-8 tracking-widest text-white text-3xl lg:text-5xl '>Suggestions</h1>
+     <CardSection suggestedMovies={data} />
+     </div>
     </>
   );
 };

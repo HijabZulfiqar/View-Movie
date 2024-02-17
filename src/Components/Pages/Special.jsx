@@ -68,7 +68,7 @@ const Special = () => {
                   <img className="md:w-[110px] w-[90px]" src={votes} alt="" />
                 </div>
                 <div className="absolute mx-auto px-12 text-white top-[370px] md:top-80 flex flex-col justify-center items-center ">
-                  <h1 className="text-2xl tracking-widest font-Abyssinica">
+                  <h1 className="text-2xl tracking-widest font-acme">
                     Storyline
                   </h1>
                   <div className="w-[340px] ml-10 special font-Abyssinica md:mr-0 md:w-[470px] lg:ml-10 mt-4">
@@ -98,7 +98,7 @@ const Special = () => {
         </div>
 
         <Link to="/">
-          <GoArrowLeft className="absolute md:z-50  bottom-[88%] left-6 text-white   w-10  h-16 cursor-pointer" />
+          <GoArrowLeft className="absolute md:z-50  bottom-[87%] left-6 text-white   w-10  h-16 cursor-pointer" />
         </Link>
       </div>
     </div>

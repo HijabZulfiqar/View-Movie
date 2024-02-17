@@ -18,7 +18,7 @@ const SignupForm = () => {
     
 
     promise.then(function (response) {
-        console.log(response); // Success
+       
         navigate("/login")
     }, function (error) {
         console.log(error); // Failure
