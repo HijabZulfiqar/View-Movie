@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
@@ -9,7 +9,10 @@ const CardSection = ({
   topRef,
   selectedOption,
   activeCategory,
+  suggestedMovies,
 }) => {
+  const [dataToMap, setDataToMap] = useState([]);
+
   // Regular query for movies
   const { data: movies } = useQuery({
     queryKey: ["movies", page],
@@ -27,20 +30,39 @@ const CardSection = ({
 
   // Query for searched movies
   const { data: searchedMovie } = useQuery({
-    queryKey: ["movies", searchQuery],
+    queryKey: ["movies", searchQuery ],
     queryFn: async () => {
-      if (!searchQuery) return [];
+      const query = searchQuery ;
+      console.log("Query:", query);
+      if (!query) return [];
       const response = await fetch(
         `https://api.themoviedb.org/3/search/movie?api_key=${
           import.meta.env.VITE_API_KEY
-        }&query=${searchQuery}`
+        }&query=${query}`
       );
       const data = await response.json();
-
+      console.log("API Response:", data.results);
       return data.results;
     },
     placeholderData: keepPreviousData,
     enabled: Boolean(searchQuery),
+  });
+  //query for suggested movies
+  const { data: suggestedMovie } = useQuery({
+    queryKey: ["movies", suggestedMovies],
+    queryFn: async () => {
+      const query = suggestedMovies?.length > 0 ? suggestedMovies.join(', ') : '';
+      if (!query) return [];
+      const response = await fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=${
+          import.meta.env.VITE_API_KEY
+        }&query=${query}`
+      );
+      const data = await response.json();
+      return data.results;
+    },
+    placeholderData: keepPreviousData,
+    enabled: Boolean(suggestedMovies?.length > 0),
   });
 
   // Query for trending movies, only enabled when selectedOption is truthy
@@ -61,11 +83,11 @@ const CardSection = ({
     enabled: Boolean(selectedOption),
   });
 
-  //query for category movies;
+  // Query for category movies
   const { data: category } = useQuery({
     queryKey: ["movies", activeCategory, page],
     queryFn: async () => {
-      if (!activeCategory) return []; // Exit early if activeCategory is not set
+      if (!activeCategory) return [];
       const response = await fetch(
         `https://api.themoviedb.org/3/movie/${activeCategory}?api_key=${
           import.meta.env.VITE_API_KEY
@@ -79,17 +101,20 @@ const CardSection = ({
     enabled: Boolean(activeCategory),
   });
 
-  // const dataToMap = searchQuery ? searchedMovie : trendingMovie || movies || [];
-  let dataToMap;
-  if (searchQuery) {
-    dataToMap = searchedMovie;
-  } else if (selectedOption) {
-    dataToMap = trendingMovie;
-  } else if (activeCategory) {
-    dataToMap = category;
-  } else {
-    dataToMap = movies;
-  }
+  // Set dataToMap based on the available data
+  useEffect(() => {
+    if (searchQuery && searchedMovie) {
+      setDataToMap(searchedMovie);
+    } else if (selectedOption && trendingMovie) {
+      setDataToMap(trendingMovie);
+    } else if (activeCategory && category) {
+      setDataToMap(category);
+    } else if (suggestedMovies?.length > 0 && suggestedMovie) {
+      setDataToMap(suggestedMovie);
+    } else {
+      setDataToMap(movies);
+    }
+  }, [searchQuery, selectedOption, activeCategory, movies, searchedMovie, suggestedMovies, suggestedMovie, trendingMovie, category]);
 
   return (
     <motion.div
@@ -101,9 +126,9 @@ const CardSection = ({
         ref={topRef}
         className="grid justify-center grid-cols-1 py-16 md:grid-cols-2 lg:px-0 xl:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-3"
       >
-        {dataToMap?.map((movie) => (
+        {dataToMap?.map((movie, index) => (
           <Card
-            key={movie.id}
+            key={movie.id || index}
             id={movie.id}
             title={movie.title}
             popularity={movie.popularity}
