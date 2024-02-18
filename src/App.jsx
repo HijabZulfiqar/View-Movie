@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "./Components/Layout/Layout";
 
-import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Sidebar from "./Components/SideBar/SideBar";
 import Home from "./Components/Pages/Home";
 import Special from "./Components/Pages/Special";

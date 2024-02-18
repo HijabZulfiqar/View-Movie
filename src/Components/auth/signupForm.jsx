@@ -93,7 +93,7 @@ const SignupForm = () => {
           </button>
          
           <p className="text-center mt-8">
-            Not a member?{" "}
+            Already a member?{" "}
             <Link to="/login">
               <button className="cursor-pointer relative border-b-2">
                 Log in now

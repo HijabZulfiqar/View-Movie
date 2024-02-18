@@ -1,69 +1,63 @@
 import React, { useState, useEffect } from "react";
 import { databases } from "../../appwrite/appwriteConfig";
 import { Link } from "react-router-dom";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Watchlist = () => {
   const [watchList, setWatchList] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const promise = databases.listDocuments(
+  const fetchWatchList = async () => {
+    const response = await databases.listDocuments(
       `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
       `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`
     );
-    promise.then(
-      (response) => {
-        setWatchList(response.documents);
-        setLoading(false);
-      },
-      (error) => {
-       
-        setLoading(false);
-      }
-    );
-  }, []);
-  
-
-  const handleDelete = async (id) => {
-    const promise = databases.deleteDocument(
-      `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
-      `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`,
-      id
-    );
-    promise.then(
-      (response) => {
-        
-        const newWatchList = watchList.filter((item) => item.$id !== id);
-        setWatchList(newWatchList);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    return response.documents;
   };
 
-  
-  const addMovieToWatchlist = async (movie) => {
-   
-    const movieExists = watchList.some((item) => item.title === movie.title);
-    if (!movieExists) {
-     
-      const promise = databases.createDocument(
+  useEffect(() => {
+    fetchWatchList().then((documents) => {
+      setWatchList(documents);
+    });
+  }, []);
+
+  const deleteMutation = useMutation({
+    mutationFn: async (id) => {
+      await databases.deleteDocument(
+        `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
+        `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`,
+        id
+      );
+      return id;
+    },
+    onSuccess: (id) => {
+      setWatchList((prev) => prev.filter((item) => item.$id !== id));
+    },
+  });
+
+  const addMutation = useMutation({
+    mutationFn: async (movie) => {
+      const response = await databases.createDocument(
         `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
         `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`,
         movie
       );
-      promise.then(
-        (response) => {
-         
-          setWatchList([...watchList, response]);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    } 
+      return response;
+    },
+    onSuccess: (newMovie) => {
+      setWatchList((prev) => [...prev, newMovie]);
+    },
+  });
+
+  const handleDelete = (id) => {
+    deleteMutation.mutate(id);
+  };
+
+  const addMovieToWatchlist = (movie) => {
+    const movieExists = watchList.some((item) => item.title === movie.title);
+    if (!movieExists) {
+      addMutation.mutate(movie);
+    }
   };
 
   return (
@@ -95,13 +89,13 @@ const Watchlist = () => {
           ))}
         </div>
       </div>
-      <Link to="/" >
-      <button
-       
-        className=" flex  justify-center items-center text-center mt-5 mx-auto  bg-[#262837] cursor-pointer text-white font-bold py-2 px-10 tracking-widest rounded-md"
-      >
-       Back to home page
-      </button>
+      {deleteMutation.isLoading && <p className="text-center text-white mt-5">Loading...</p>}
+      <Link to="/">
+        <button
+          className="flex justify-center items-center text-center mt-5 mx-auto bg-[#262837] cursor-pointer text-white font-bold py-2 px-10 tracking-widest rounded-md"
+        >
+          Back to home page
+        </button>
       </Link>
     </div>
   );
