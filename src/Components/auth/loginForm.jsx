@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import backdropPath from "../../assets/netflix-background.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { account } from "../../appwrite/appwriteConfig";
+import { databases } from "../../appwrite/appwriteConfig";
+import { v4 as uuidv4 } from "uuid";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -13,11 +15,14 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       await account.createEmailSession(user.email, user.password);
+      
       navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
+  //  console.log(loginUser);
+  
 
   return (
     <div className="relative w-full mx-auto h-screen ">

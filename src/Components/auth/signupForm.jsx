@@ -1,29 +1,42 @@
 import React, { useState } from "react";
 import backdropPath from "../../assets/netflix-background.jpg";
 import { Link, useNavigate } from "react-router-dom";
-import { account } from "../../appwrite/appwriteConfig";
-import { v4 as uuidv4} from 'uuid';
-
+import { account, databases } from "../../appwrite/appwriteConfig";
+import { v4 as uuidv4 } from "uuid";
 
 const SignupForm = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
-    email:"",
+    email: "",
     password: "",
   });
-  const signup=async(e)=>{
-    e.preventDefault();
-    const promise =  account.create(uuidv4(),user.email,user.password,user.name);
-    
 
-    promise.then(function (response) {
-       
-        navigate("/login")
-    }, function (error) {
-        console.log(error); // Failure
-    });
-   }
+  const signup = async (e) => {
+    e.preventDefault();
+    try {
+      const newUser = await account.create(uuidv4(), user.email, user.password, user.name);
+      console.log(newUser);
+      if (newUser) {
+        try {
+          await databases.createDocument(
+            import.meta.env.VITE_APPWRITE_DATABASE_ID,
+            import.meta.env.VITE_APPWRITE_USER_COLLECTION_ID,
+            uuidv4(),
+            {
+              email: user.email,
+            }
+          );
+          navigate("/login");
+        } catch (dbError) {
+          console.error("Error adding user to database:", dbError);
+        }
+      }
+    } catch (error) {
+      console.error(error); // Failure
+    }
+  };
+
   return (
     <div className="relative w-full mx-auto h-screen ">
       <img
@@ -43,12 +56,12 @@ const SignupForm = () => {
               required
               id="name"
               autoComplete="name"
-               onChange={(e)=>{
+              onChange={(e) => {
                 setUser({
                   ...user,
-                  name:e.target.value
-                })
-               }}
+                  name: e.target.value,
+                });
+              }}
             />
           </div>
           <div className="flex flex-col mb-4">
@@ -60,12 +73,12 @@ const SignupForm = () => {
               required
               id="email"
               autoComplete="email"
-               onChange={(e)=>{
+              onChange={(e) => {
                 setUser({
                   ...user,
-                  email:e.target.value
-                })
-               }}
+                  email: e.target.value,
+                });
+              }}
             />
           </div>
           <div className="flex flex-col ">
@@ -76,22 +89,19 @@ const SignupForm = () => {
               required
               id="password"
               name="password"
-                      autoComplete="current-password"
-                    
-              onChange={(e)=>{
+              autoComplete="current-password"
+              onChange={(e) => {
                 setUser({
                   ...user,
-                  password:e.target.value
-                })
-               }}
+                  password: e.target.value,
+                });
+              }}
             />
           </div>
-          <button
-          onClick={signup}
-           className="w-full py-3 mt-8 bg-[#262837] relative text-white">
+          <button onClick={signup} className="w-full py-3 mt-8 bg-[#262837] relative text-white">
             Sign Up
           </button>
-         
+
           <p className="text-center mt-8">
             Already a member?{" "}
             <Link to="/login">

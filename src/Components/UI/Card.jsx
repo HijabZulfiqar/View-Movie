@@ -5,18 +5,19 @@ import { v4 as uuidv4 } from "uuid";
 import { motion } from "framer-motion";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { databases } from "../../appwrite/appwriteConfig";
+import { account, databases } from "../../appwrite/appwriteConfig";
 import watchlist from "../../assets/watchlist_icon.png";
 
 const Card = ({ id, title, popularity, poster_path }) => {
- 
+
   const [watchList, setWatchList] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     const fetchWatchList = async () => {
       const promise = databases.listDocuments(
-        `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
-        `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_COLLECTION_ID
       );
       promise.then(
         function (response) {
@@ -28,18 +29,29 @@ const Card = ({ id, title, popularity, poster_path }) => {
       );
     };
 
-    fetchWatchList();
-  }, []);
+    const fetchCurrentUser = async () => {
+      try {
+        const user = await account.get();
+        setCurrentUser(user);
+      } catch (error) {
+        console.log("Error fetching current user:", error);
+      }
+    };
 
+    fetchWatchList();
+    fetchCurrentUser();
+  }, []);
+console.log(currentUser?.$id)
   const handleWatchList = async (e) => {
     e.preventDefault();
     if (!watchList.some((movie) => movie.title === title)) {
       const promise = databases.createDocument(
-        `${import.meta.env.VITE_APPWRITE_DATABASE_ID}`,
-        `${import.meta.env.VITE_APPWRITE_COLLECTION_ID}`,
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
         uuidv4(),
         {
           title: title,
+          user: currentUser?.$id,
         }
       );
 
