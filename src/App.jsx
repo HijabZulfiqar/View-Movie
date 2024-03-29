@@ -12,6 +12,7 @@ import LoginForm from "./Components/auth/loginForm";
 import path from "path";
 import SignupForm from "./Components/auth/signupForm";
 import Watchlist from "./Components/Pages/Watchlist";
+import ProtectedRoute from "./Components/auth/ProtectedRoute";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
 
       { path: "/trending", element: <Trending /> },
-      { path: "/suggestions", element: <Suggestions /> },
+      { path: "/suggestions", element:<ProtectedRoute><Suggestions /></ProtectedRoute> },
       { path: "/categories", element: <Category /> },
       { path: "/home", element: <Home /> },
     ],
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
   { path: "/movies/:id", element: <Special /> },
   { path: "/login", element: <LoginForm /> },
   { path: "/signup", element: <SignupForm /> },
-  { path: "/watchlist", element: <Watchlist /> },
+  { path: "/watchlist", element: <ProtectedRoute><Watchlist /></ProtectedRoute> },
 ]);
 
 function App() {

@@ -41,7 +41,7 @@ const Card = ({ id, title, popularity, poster_path }) => {
     fetchWatchList();
     fetchCurrentUser();
   }, []);
-console.log(currentUser?.$id)
+
   const handleWatchList = async (e) => {
     e.preventDefault();
     if (!watchList.some((movie) => movie.title === title)) {
