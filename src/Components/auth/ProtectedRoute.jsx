@@ -20,7 +20,7 @@ const ProtectedRoute = ({ children }) => {
     if(Boolean(userdetail)) return children;
     return (
       <div>
-        {/* You are not authorized for this action. */}
+        You are not authorized for this action.
       </div>
     );
 }
